@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Category;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $categories = array();
+
+        foreach(Category::all() as $category) {
+            $categories[$category->id] = $category->name;
+        }
+
+        view()->share(compact('categories'));
     }
 
     /**
