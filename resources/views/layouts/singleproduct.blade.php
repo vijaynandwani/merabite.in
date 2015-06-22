@@ -61,8 +61,8 @@
                     <div class="collapse menu-collapse" id="menu-mobile">
                        
                            <ul class="nav nav-pills">
-                            @foreach($categories as $category)
-                            <li><a href="pizza.html">{{$category}}</a>
+                            @foreach($categoriesnavbar as $id=>$category)
+                            <li>{!! link_to_action('StoreController@getCategory', $category, $id)!!}
                             </li>
                             @endforeach
                         </ul>
@@ -118,12 +118,19 @@
 
                     <div class="col-sm-4">
                         <div id="search">
+                            {!!Form::macro('myField', function()
+                            {
+                                return '<button type="submit" class="btn btn-default"><span class="fa fa-search"></span></button>';
+                            });!!}
+
+                            {!! Form::open(array('url'=>'store/search', 'method'=>'get', 'class'=>'form-inline')) !!}
                             <div class="input-group">
-                                <input type="text" name="search" class="form-control" placeholder="Search" value="">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default button-search" type="button"><span class="fa fa-search"></span></button>
-                                </span>
+                            {!! Form::text('keyword', null, array('placeholder'=>'Search by keyword', 'class'=>'form-control')) !!}
+                              <span class="input-group-btn">
+                             {!!Form::myField();!!}
+                            </span>
                             </div>
+                            {!! Form::close() !!}                       
                         </div>
 
                         <div class="header-right">
@@ -159,8 +166,10 @@
                         </div>
                         <div class="box-content">
                             <ul class="box-category treemenu">
-                                @foreach($categories as $category)
-                                    <li><a href="pizza.html"><span>{{$category}}</span></a></li>
+                                @foreach($categoriesnavbar as $id=>$category)
+                                <li>
+                                    <a href="{{url('/store/category').'/'.$id}}"><span>{{$category}}</span></a>
+                                </li>
                                 @endforeach
                             </ul>
                         </div>
@@ -367,5 +376,38 @@
     <script type="text/javascript" src="{{ asset('js/jquery.fitvids.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.colorbox.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/common.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.totalstorage.min.js') }}"></script>
+    <script type="text/javascript">
+    function display(view) {
+        if (view == 'list')
+        {
+            $('#content .product-grid').attr('class', 'product-list box-product');
+            $('.display').html('' +
+                    '<div class="btn-group btn-group-sm">' +
+                    '<span class="btn btn-default" disabled="disabled"><i class="fa fa-th-list"></i> List</span>' +
+                    '<a class="btn btn-default" onclick="display(\'grid\');"><i class="fa fa-th"></i> Grid</a>' +
+                    '</div>'
+            );
+            $.totalStorage('display', 'list');
+        }
+        else
+        {
+            $('#content .product-list').attr('class', 'product-grid box-product');
+            $('.display').html('' +
+                    '<div class="btn-group btn-group-sm">' +
+                    '<a class="btn btn-default" onclick="display(\'list\');"><i class="fa fa-th-list"></i> List</a>' +
+                    '<span class="btn btn-default" disabled="disabled"><i class="fa fa-th"></i> Grid</span>' +
+                    '</div>'
+            );
+            $.totalStorage('display', 'grid');
+        }
+    }
+    view = $.totalStorage('display');
+    if (view) {
+        display(view);
+    } else {
+        display('list');
+    }
+</script>
 </body>
 </html>

@@ -14,13 +14,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $categories = array();
+        $categoriesnavbar = array();
 
         foreach(Category::all() as $category) {
-            $categories[$category->id] = $category->name;
+            $categoriesnavbar[$category->id] = $category->name;
         }
 
-        view()->share(compact('categories'));
+        view()->share(compact('categoriesnavbar'));
     }
 
     /**

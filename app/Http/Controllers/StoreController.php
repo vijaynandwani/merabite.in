@@ -26,4 +26,10 @@ class StoreController extends Controller
 		$category = Category::find($id);
 		return view('store.category', compact('products', 'category'));
 	}
+
+	public function getSearch(Request $request){
+		$keyword = $request->input('keyword');
+		$products = Product::where('title', 'LIKE', '%'.$keyword.'%')->orWhere('description', 'LIKE', '%'.$keyword.'%')->get();
+		return view('store.search', compact('products', 'keyword'));
+	}
 }

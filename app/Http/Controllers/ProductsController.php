@@ -65,7 +65,7 @@ class ProductsController extends Controller
 	{
 		$product = Product::find($request->input('id'));
 		if ($product) {
-			File::delete('public/'.$product->image);
+			\File::delete('public/'.$product->image);
 			$product->delete();
 			return redirect('admin/product/index')->with('message', 'Product Deleted!');
 		}
