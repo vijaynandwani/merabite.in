@@ -16,4 +16,14 @@ Route::get('/', 'StoreController@getindex');
 Route::controller('admin/category', 'CategoriesController');
 Route::controller('admin/product', 'ProductsController');
 Route::controller('store', 'StoreController');
+Route::get('/auth/logout', function(){
+	Auth::logout();
+	return Redirect::to('/');
+});
+
+Route::get('/auth/google','AuthController@login');
+
+Route::get('/profile', function(){
+	$user = Socialize::with('google')->user();
+});
 

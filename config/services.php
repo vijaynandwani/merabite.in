@@ -35,4 +35,10 @@ return [
         'secret' => '',
     ],
 
+    'google' => [
+        'client_id' => '653148111358-4v98rdvvbqpb2rehpqv9fqdm0o1ja1f7.apps.googleusercontent.com',
+        'client_secret' => 'RshKN9wxxzg2MD1GwbeDv7JU',
+        'redirect' => 'http://localhost/laravel/merabite/public/auth/google',
+    ],
+
 ];

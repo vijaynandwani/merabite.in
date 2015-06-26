@@ -32,7 +32,19 @@
             <div class="container">
 
                 <!-- cart -->
-                <div id="cart">
+                @if(Auth::check())
+                    <div id="cart">
+                    <div class="heading">
+                        <a title="Log In">
+                           <span id="cart-total">
+                               <i class="fa fa-user fa-lg"></i>&nbsp;
+                               <span class="hidden-xs">Sign In</span>
+                           </span>
+                        </a>
+                    </div>
+                    </div>
+                @else
+                    <div id="cart">
                     <div class="heading">
                         <a title="Shopping Cart">
                            <span id="cart-total">
@@ -41,13 +53,9 @@
                            </span>
                         </a>
                     </div>
-
-                    <div class="content">
-                        <div class="inner">
-                            <div class="empty">Your shopping cart is empty!</div>
-                        </div>
                     </div>
-                </div>
+                @endif
+                
 
                 
                 <div id="menu" class="menu-container">
