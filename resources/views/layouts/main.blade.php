@@ -32,10 +32,10 @@
             <div class="container">
 
                 <!-- cart -->
-                @if(Auth::check())
+                @if(!Auth::check())
                     <div id="cart">
                     <div class="heading">
-                        <a title="Log In">
+                        <a href="auth/google" title="Log In">
                            <span id="cart-total">
                                <i class="fa fa-user fa-lg"></i>&nbsp;
                                <span class="hidden-xs">Sign In</span>
@@ -46,6 +46,11 @@
                 @else
                     <div id="cart">
                     <div class="heading">
+                            <a href={!! action('AuthController@logout')!!}>
+                            <span id="cart-total">
+                           <i class="fa fa-power-off fa-lg"></i>
+                           </span>
+                        </a>
                         <a title="Shopping Cart">
                            <span id="cart-total">
                                <i class="fa fa-shopping-cart fa-lg"></i>&nbsp;

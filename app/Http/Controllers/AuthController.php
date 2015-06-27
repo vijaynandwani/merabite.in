@@ -18,4 +18,9 @@ class AuthController extends Controller implements AuthenticateUserListener
     public function userHasLoggedIn($user){
     	return redirect('/');
     }
+
+    public function logout(){
+    	\Auth::logout();
+		return \Redirect::to('/');
+    }
 }

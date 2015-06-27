@@ -30,9 +30,25 @@
        <div class="navbar navbar-inverse navbar-fixed-top topbar">
             <div class="container">
 
-                <!-- cart -->
-                <div id="cart">
+                @if(!Auth::check())
+                    <div id="cart">
                     <div class="heading">
+                        <a href="auth/google" title="Log In">
+                           <span id="cart-total">
+                               <i class="fa fa-user fa-lg"></i>&nbsp;
+                               <span class="hidden-xs">Sign In</span>
+                           </span>
+                        </a>
+                    </div>
+                    </div>
+                @else
+                    <div id="cart">
+                    <div class="heading">
+                            <a href={!! action('AuthController@logout')!!}>
+                            <span id="cart-total">
+                           <i class="fa fa-power-off fa-lg"></i>
+                           </span>
+                        </a>
                         <a title="Shopping Cart">
                            <span id="cart-total">
                                <i class="fa fa-shopping-cart fa-lg"></i>&nbsp;
@@ -40,13 +56,8 @@
                            </span>
                         </a>
                     </div>
-
-                    <div class="content">
-                        <div class="inner">
-                            <div class="empty">Your shopping cart is empty!</div>
-                        </div>
                     </div>
-                </div>
+                @endif
 
                 
                 <div id="menu" class="menu-container">
