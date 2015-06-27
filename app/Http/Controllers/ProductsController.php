@@ -11,6 +11,9 @@ use App\Category;
 
 class ProductsController extends Controller
 {
+	public function __construct(){
+		$this->middleware('admin');
+	}
     /**
 	 * Show all products
 	 *

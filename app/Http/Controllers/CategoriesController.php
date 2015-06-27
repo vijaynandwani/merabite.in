@@ -10,6 +10,9 @@ use App\Category;
 
 class CategoriesController extends Controller
 {
+	public function __construct(){
+		$this->middleware('admin');
+	}
 	/**
 	 * Show all categories
 	 *

@@ -12,7 +12,6 @@
 */
 
 Route::get('/', 'StoreController@getindex');
-
 Route::controller('admin/category', 'CategoriesController');
 Route::controller('admin/product', 'ProductsController');
 Route::controller('store', 'StoreController');
