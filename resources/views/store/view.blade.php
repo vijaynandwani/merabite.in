@@ -53,14 +53,24 @@
                 <div class="cart">
                     <div class="add-to-cart clearfix" style="margin-top: 20px">
                         <!--span class="help-block">Qty:</span-->
-                        <div class="input-group input-group-lg">
+                        <div class="input-group">
+                                {!!Form::macro('addtocart', function()
+                                {
+                                    return '<button type="submit" class="btn btn-success">
+                                    <i class="fa fa-shopping-cart"></i> <span>Add to Cart</span>
+                                </button>';
+                                });!!}
+                                {!! Form::open(array('url'=>'store/addtocart','class'=>'form-inline')) !!}
+                            <div class="form-group">
                             <input type="text" name="quantity" class="form-control" size="2" value="1">
+                            </div>
+                            <div class="form-group">
                             <span class="input-group-btn">
-                                <button type="button" id="button-cart" class="btn btn-success">
-                                    <i class="fa fa-shopping-cart"></i> &nbsp;
-                                    Add to Cart
-                                </button>
+                                    {!! Form::hidden('productId',$product->id) !!}
+                                     {!!Form::addtocart();!!}
+                                {!! Form::close() !!}
                             </span>
+                            </div>
                         </div>
                         <input type="hidden" name="product_id" size="2" value="44">
                     </div>

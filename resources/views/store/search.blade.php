@@ -41,9 +41,17 @@
         
         
                 <div class="cart">
-                    <button class="btn btn-success" type="button" onclick="addToCart(&#39;6816&#39;);">
+                    {!!Form::macro('addtocart', function()
+                    {
+                        return '<button type="submit" class="btn btn-success">
                         <i class="fa fa-shopping-cart"></i> <span>Add to Cart</span>
-                    </button>
+                    </button>';
+                    });!!}
+                    {!! Form::open(array('url'=>'store/addtocart')) !!}
+                         {!! Form::hidden('quantity',1) !!}
+                         {!! Form::hidden('productId',$product->id) !!}
+                         {!!Form::addtocart();!!}
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>

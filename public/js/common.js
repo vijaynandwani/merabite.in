@@ -1,19 +1,24 @@
 $(document).ready(function() {
 	/* Search */
-	$('.button-search').bind('click', function() {
-		location = 'search.html';
-	});
+	
 	
 	
 	/* Ajax Cart */
-	$(document).on('click', '#cart > .heading a', function() {
-        if ($('#cart').hasClass('active')) {
-            $('#cart').removeClass('active');
-        } else {
-            $('#cart').addClass('active');
-
-            $('#cart').load('index.php?route=module/cart #cart > *');
-        }
+	$(document).on('click', '#updatequantity', function(e) {
+        e.preventDefault();
+        var quantityText = $(this).closest('span').next(),
+            quantityValue = quantityText.val(),
+            rowId = quantityText.attr('id');
+        var priceText = $(quantityText).closest('td').next();
+        var posting = $.post( 'updatecartquantity', { _token: $( document ).find( 'input[name=_token]' ).val(),id: rowId, quantity: quantityValue} );
+        // Put the results in a div
+      posting.done(function( data ) {
+        $('td.subTotalDown').text('₹'+data.total+'.00');
+        $('#headingtotal').text('(₹'+data.total+')');
+        $('.cartTotalUpper').text(data.count + ' item(s) - ₹' + data.total + '.00');
+        var totalwithothers = parseInt(data.total,10) + 30;
+        $('td.totalDown').text('₹'+totalwithothers+'.00');
+      });
 	});
 	
 	/* Mega Menu */
@@ -94,37 +99,11 @@ function getURLVar(key) {
 	}
 } 
 
-function addToCart(product_id, quantity) {
-	quantity = typeof(quantity) != 'undefined' ? quantity : 1;
 
-	$.ajax({
-		url: 'index.php?route=checkout/cart/add',
-		type: 'post',
-		data: 'product_id=' + product_id + '&quantity=' + quantity,
-		dataType: 'json',
-		success: function(json) {
-			$('.alert').remove();
-			
-			if (json['redirect']) {
-				location = json['redirect'];
-			}
-			
-			if (json['success']) {
-				$('#notification').html('<div class="alert alert-success" style="display: none;">' + json['success'] + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>');
-				
-				$('.alert-success').fadeIn('slow');
-				
-				$('#cart-total').html('<i class="fa fa-shopping-cart fa-lg"></i>&nbsp;<span class="hidden-xs">' + json['total'] + '</span>');
-				
-				$('html, body').animate({ scrollTop: 0 }, 'slow'); 
-			}	
-		}
-	});
-}
 
 
 $(document).ready(function(){
-	    
+
 
     $('#product-slider-0').bxSlider({
         slideSelector: $('.slide-item'),

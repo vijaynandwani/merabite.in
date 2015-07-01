@@ -53,7 +53,7 @@
                         <a title="Shopping Cart">
                            <span id="cart-total">
                                <i class="fa fa-shopping-cart fa-lg"></i>&nbsp;
-                               <span class="hidden-xs">0 item(s) - ₹0.00</span>
+                               <span class="hidden-xs">{{\Cart::count()}} item(s) - ₹{{\Cart::total()}}.00</span>
                            </span>
                         </a>
                     </div>
@@ -123,7 +123,7 @@
 
                     <div class="col-sm-4">
                         <div id="logo">
-                            <a href="/"><img src="{{ asset('img/logo_pizza.png') }}" title="MeraBite" alt="MeraBite"></a>
+                            <a href="{{url('/')}}"><img src="{{ asset('img/logo_pizza.png') }}" title="MeraBite" alt="MeraBite"></a>
                         </div>
                     </div>
 
