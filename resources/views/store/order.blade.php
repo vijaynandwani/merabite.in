@@ -1,27 +1,24 @@
 @extends('layouts.single')
 @section('content')
 
-	<ol class="breadcrumb">
+    <ol class="breadcrumb">
         <li><a href="index-2.html">Home</a></li>
-        <li><a href="shopping-cart.html">Checkout</a></li>
+        <li><a href="shopping-cart.html">Order Summary</a></li>
     </ol>
 
-	<p class="bg-info" style="padding: 10px;">{{$message}}</p>
     
-    @if ($orderDetails != NULL)
     
+    @if (!is_null($orderDetails))
+    <p class="bg-info" style="padding: 10px;">
+        Download your 
+        <a href="{{action('StoreController@getPdfinvoice', ['id' => $orderDetails[0]->id])}}">
+        invoice here</a>
+    </p>
 
-	<p class="bg-info" style="padding: 10px;">
-		Download your 
-		<a href="{{action('StoreController@getPdfinvoice', ['id' => $orderDetails[0]->id])}}">
-		confirmation here</a>! 
-		Pay the amount of ₹{{$orderDetails[0]->price}} to us! More payment methods coming soon! ;)
-	</p>
-
-	 <div class="page-header">
+     <div class="page-header">
         <h1>Order Summary</h1>
     </div>
-    	<div class="cart-info table-responsive">
+        <div class="cart-info table-responsive">
             <table class="table table-bordered">
                 <thead><tr>
                     <th class="image">Image</th>
@@ -31,7 +28,7 @@
                     <th class="totalprice">Total Price</th>
                 </tr></thead>
                 <tbody>
-                	@foreach($orderDetails[0]->orderProducts as $product)	
+                    @foreach($orderDetails[0]->orderProducts as $product)   
                     <tr>
                         <td class="image">
                             <a href="{{action('StoreController@getView', ['id' => $product->product->id])}}">

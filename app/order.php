@@ -25,4 +25,8 @@ class order extends Model
     		return "Delivered";
     	}
     }
+
+    public function getCountOfProducts(){
+        return $this->orderProducts->count();
+    }
 }

@@ -15,8 +15,8 @@ class StoreController extends Controller
 {
 	public function __construct()
     {
-        $this->middleware('auth', ['only' => ['postAddtocart', 'getCart', 'getRemoveitem', 'getCheckout', 'getInvoice', 'postUpdatecartquantity']]);
-        $this->middleware('currentUser', ['only' => ['getInvoice']]);
+        $this->middleware('auth', ['only' => ['getMyorders', 'postAddtocart', 'getCart', 'getRemoveitem', 'getCheckout', 'getInvoice', 'postUpdatecartquantity']]);
+        $this->middleware('currentUser', ['only' => ['getInvoice','getOrder']]);
     
     }
     public function getIndex() {
@@ -118,5 +118,18 @@ class StoreController extends Controller
 		$orderForPdf = Order::find($id);
 		$pdf = \PDF::loadView('store.invoice', compact('orderForPdf'));
 		return $pdf->download('invoice.pdf');
+	}
+
+	public function getMyorders(){
+		$orders = \Auth::user()->orders;
+		if(is_null($orders)){
+			$message = "You haven't ordered anything! Try us we are good! ;)";
+		}
+		return view('store.myorders', compact('orders', 'message'));	
+	}
+
+	public function getOrder($id) {
+		$orderDetails = order::where('id', $id)->get();
+		return view('store.order', compact('orderDetails'));
 	}
 }

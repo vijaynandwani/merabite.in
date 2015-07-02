@@ -75,6 +75,9 @@
                             <li>{!! link_to_action('StoreController@getCategory', $category, $id)!!}
                             </li>
                             @endforeach
+                            @if(Auth::check())
+                                <li>{!! link_to_action('StoreController@getMyorders', "My Orders")!!}</li>
+                            @endif
                         </ul>
                         
                     </div>
