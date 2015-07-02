@@ -14,10 +14,10 @@
 Route::get('/', 'StoreController@getindex');
 Route::controller('admin/category', 'CategoriesController');
 Route::controller('admin/product', 'ProductsController');
+Route::controller('admin/collect', 'CollectionController');
 Route::controller('store', 'StoreController');
 Route::get('/auth/logout', 'AuthController@logout');
 Route::get('/auth/google','AuthController@login');
 Route::get('/profile', function(){
 	$user = Socialize::with('google')->user();
 });
-
